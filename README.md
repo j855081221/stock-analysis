@@ -3,7 +3,3 @@
 透過按鈕等方式觸發呼叫更新資料。
 
 [google文件](https://docs.google.com/document/d/1Tq3_dDtOHuO-6c9z4_NHPwfsQA-mwCOZyYY618ehONc/edit)
-
-
-測試
-第二次
