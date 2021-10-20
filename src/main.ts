@@ -1,37 +1,3 @@
-enum Func {
-    All = "all",
-    chart = "chart",
-    time = "time",
-    stockId = "stockId", 
-    stockName = "stockName",
-    OpenPrice = "OpenPrice",
-    ClosingPrice = "ClosingPrice",
-    volume = "volume"
-
-}
-
-type stock = {
-    closingPrice: number,
-    high: number,
-    low: number,
-    openPrice: number,
-    changeRange: string,
-    date: string,
-    foreignInvestors: number,
-    investmentTrust: number,
-    stockId: number,
-    stockName: string,
-    volume: number,
-    yesterdayClose: number,
-}
-//console.log("hello world");
-type DoGet = GoogleAppsScript.Events.DoGet & {
-    parameter:{
-       func:Func;
-    }
-}
-
-
 function onOpen(){
     console.log("test open")
     const ui = SpreadsheetApp.getUi();
