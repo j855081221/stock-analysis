@@ -73,6 +73,43 @@ function point(){
     console.log(modifiedStockPoint)
 }
 
+function point2(){
+    var OTCpoint = UrlFetchApp.fetch(`https://www.tpex.org.tw/web/stock/iNdex_info/minute_index/1MIN_result.php?l=zh-tw&_=1636538447144`);
+    
+    const OTCdataPoint = JSON.parse(OTCpoint.getContentText())
+
+
+    const modifiedStockPoint2 = OTCdataPoint.aaData
+        .map(v => {
+            return {
+                time: "" + v[0],
+                point: v[21],
+            }
+        });
+    
+    console.log(modifiedStockPoint2)
+}
+
+
+
+function getCSV(){
+    let OTCpoint = UrlFetchApp.fetch(`https://www.tpex.org.tw/web/stock/iNdex_info/minute_index/1MIN_download.php?l=zh-tw&d=110/11/10&s=0,asc,0`);
+    //Logger.log(responseTSC.getContentText());
+    //const OTCdataPoint = JSON.parse(OTCpoint.getContentText())
+    let csvTest = OTCpoint.getContentText("BIG5");
+    let csv = Utilities.parseCsv(csvTest)
+    console.log(csv)
+}
+
+function getHTML(){
+    //NOTE 取得HTML整個網頁的資料 用正規表達式儲存資料
+
+    let OTCpoint = UrlFetchApp.fetch(`https://www.tpex.org.tw/web/stock/iNdex_info/minute_index/1MIN_print.php?l=zh-tw&d=110/11/10&l&s=0,asc,0`);
+    let Test = OTCpoint.getContentText();
+    console.log(Test)
+}
+
+
 function test(){
     const myDate = new Date()
     const year = myDate.getFullYear().toString();
@@ -488,10 +525,27 @@ function doPost(e) {
                     }
                 });
 
-
             //result = data.toString();
             return ContentService.createTextOutput(JSON.stringify(modifiedStockPoint)).setMimeType(ContentService.MimeType.JSON)
             break;
+
+        case Func.OTCchart:
+          
+            var OTCpoint = UrlFetchApp.fetch(`https://www.tpex.org.tw/web/stock/iNdex_info/minute_index/1MIN_result.php?l=zh-tw&_=1636538447144`);
+    
+            const OTCdataPoint = JSON.parse(OTCpoint.getContentText())
+        
+        
+            const modifiedStockPoint2 = OTCdataPoint.aaData
+                .map(v => {
+                    return {
+                        time: "" + v[0],
+                        point: v[21],
+                    }
+                });
+
+            return ContentService.createTextOutput(JSON.stringify(modifiedStockPoint2)).setMimeType(ContentService.MimeType.JSON)
+
         case Func.time:
             const myDate = new Date()
             const year = myDate.getFullYear().toString();
